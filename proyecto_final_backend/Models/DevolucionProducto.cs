@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace proyecto_final_backend.Models
 {
-    [Table("componentes_garantias")]
-    public class ComponenteGarantia
+    [Table("devolucion_producto")]
+    public class DevolucionProducto
     {
         [Key]
         [Column("id")]
@@ -13,13 +13,9 @@ namespace proyecto_final_backend.Models
         [Column("id_producto")]
         public int IdProducto { get; set; }
 
-        [Column("id_garantia")]
-        public int IdGarantia { get; set; }
-
-        [Column("cantidad")]
-        public byte Cantidad { get; set; }
+        [Column("id_devolucion")]
+        public int IdDevolucion { get; set; }
 
         public Producto Producto { get; set; } = null!;
-        public Garantia Garantia { get; set; } = null!;
     }
 }

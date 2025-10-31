@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace proyecto_final_backend.Models
 {
@@ -11,19 +10,18 @@ namespace proyecto_final_backend.Models
         [Column("id")]
         public int Id { get; set; }
 
-        [ForeignKey("IdProveedor")]
-        public required Proveedor Proveedor { get; set; }
+        [Column("id_proveedor")]
+        public int IdProveedor { get; set; }
 
-        [Required]
+        public Proveedor Proveedor { get; set; } = null!;
+
         [Column("fecha")]
         public DateOnly Fecha { get; set; }
 
-        [Required]
         [Column("monto_total")]
         public decimal MontoTotal { get; set; }
 
-        [Required]
         [Column("deleted")]
-
+        public bool Deleted { get; set; } = false;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace proyecto_final_backend.Models
 {
@@ -9,15 +10,19 @@ namespace proyecto_final_backend.Models
         [Key]
         [Column("id")]
         public int Id { get; set; }
-        [ForeignKey("Venta")]
-        [Column("id_venta")]
-        public required int ReparacionId { get; set; }
-        [ForeignKey("Usuario")]
+
         [Column("id_usuario")]
-        public required int UsuarioId { get; set; }
+        public int UsuarioId { get; set; }
+
+        [Column("id_venta")]
+        public int VentaId { get; set; }
+
         [Column("precio")]
-        public required decimal Precio { get; set; }
+        public decimal Precio { get; set; }
+
         [Column("deleted")]
-        public required bool Deleted { get; set; }
+        public bool Deleted { get; set; }
+
+        public ICollection<ComponenteReparacion> Componentes { get; set; } = new List<ComponenteReparacion>();
     }
 }

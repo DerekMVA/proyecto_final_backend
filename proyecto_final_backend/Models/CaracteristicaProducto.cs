@@ -9,11 +9,14 @@ namespace proyecto_final_backend.Models
         [Key]
         [Column("id")]
         public int Id { get; set; }
-        [ForeignKey("Producto")]
+
         [Column("id_producto")]
-        public required int IdProducto { get; set; }
-        [ForeignKey("Caracteristica")]
+        public int IdProducto { get; set; }
+
         [Column("id_caracteristica")]
-        public required int IdCaracteristica { get; set; }
+        public int IdCaracteristica { get; set; }
+
+        public Producto Producto { get; set; } = null!;
+        public Caracteristica Caracteristica { get; set; } = null!;
     }
 }

@@ -9,17 +9,20 @@ namespace proyecto_final_backend.Models
         [Key]
         [Column("id")]
         public int Id { get; set; }
-        [ForeignKey("Producto")]
+
         [Column("id_producto")]
-        public int IdProduto { get; set; }
-        [ForeignKey("Reparacion")]
+        public int IdProducto { get; set; }
+
         [Column("id_reparacion")]
         public int IdReparacion { get; set; }
-        [Required]
+
         [Column("precio")]
-        public required decimal precio { get; set; }
-        [Required]
+        public decimal Precio { get; set; }
+
         [Column("cantidad")]
-        public required byte cantidad { get; set; }
+        public byte Cantidad { get; set; }
+
+        public Producto Producto { get; set; } = null!;
+        public Reparacion Reparacion { get; set; } = null!;
     }
 }
