@@ -18,11 +18,11 @@ namespace proyecto_final_backend.Models
         [Column("precio")]
         public required decimal Precio { get; set; }
 
-        [ForeignKey("IdCompra")]
+        [ForeignKey("id_compra")]
         public required int IdCompra { get; set; }
         public required Compra Compra { get; set; }
 
-        [ForeignKey("IdProducto")]
+        [ForeignKey("id_producto")]
         public required int IdProducto { get; set; }  
         public required Producto Producto { get; set; }
 

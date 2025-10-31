@@ -22,7 +22,7 @@ namespace proyecto_final_backend.Models
         [Column("contrasena")]
         public required string Contrasena { get; set; }
 
-        [ForeignKey("IdRol")]
+        [ForeignKey("id_rol")]
         public required int idRol { get; set; }
         public required Rol Rol { get; set; }
 
