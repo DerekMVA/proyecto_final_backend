@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using proyecto_final_backend.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<proyecto_final_backendContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("proyecto_final_backendContext") ?? throw new InvalidOperationException("Connection string 'proyecto_final_backendContext' not found.")));
 
 // Add services to the container.
 

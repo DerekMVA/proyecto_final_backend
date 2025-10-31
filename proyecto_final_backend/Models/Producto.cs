@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace proyecto_final_backend.Models
 {
@@ -9,34 +10,33 @@ namespace proyecto_final_backend.Models
         [Key]
         [Column("id")]
         public int Id { get; set; }
-        [Required]
         [Column("nombre")]
         [MaxLength(30)]
         public required string Nombre { get; set; }
-        [Required]
         [Column("codigo")]
         [MaxLength(20)]
         public required string Codigo { get; set; }
-        [Required]
         [Column("precio")]
-        public required decimal Precio { get; set; }
-        [Required]
+        public decimal Precio { get; set; }
         [Column("stock")]
-        public required byte Stock { get; set; }
-        [Required]
+        public byte Stock { get; set; }
         [Column("stock_minimo")]
-        public required byte StockMinimo { get; set; }
-        [Required]
+        public byte StockMinimo { get; set; }
         [Column("nuevo")]
-        public required bool Nuevo { get; set; }
-        [Required]
+        public bool Nuevo { get; set; }
         [Column("tipo")]
-        public required byte Tipo { get; set; }
-        [Required]
+        public byte Tipo { get; set; }
         [Column("imagen")]
+        [MaxLength(255)]
         public required string Imagen { get; set; }
-        [Required]
         [Column("deleted")]
-        public required bool Deleted { get; set; } = false;
+        public bool Deleted { get; set; } = false;
+
+        public ICollection<Componente> ComponentesPrincipales { get; set; } = new List<Componente>();
+        public ICollection<Componente> ComponentesSecundarios { get; set; } = new List<Componente>();
+        public ICollection<CaracteristicaProducto> CaracteristicasProducto { get; set; } = new List<CaracteristicaProducto>();
+        public ICollection<ComponenteGarantia> ComponentesGarantias { get; set; } = new List<ComponenteGarantia>();
+        public ICollection<ComponenteReparacion> ComponentesReparaciones { get; set; } = new List<ComponenteReparacion>();
+        public ICollection<DevolucionProducto> DevolucionesProducto { get; set; } = new List<DevolucionProducto>();
     }
 }
