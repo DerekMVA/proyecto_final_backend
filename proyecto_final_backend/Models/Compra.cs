@@ -12,7 +12,8 @@ namespace proyecto_final_backend.Models
         public int Id { get; set; }
 
         [ForeignKey("IdProveedor")]
-        public required Proveedor Proveedor { get; set; }
+        public required int IdProveedor { get; set; }
+        public Proveedor? Proveedor { get; set; }
 
         [Required]
         [Column("fecha")]
