@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace proyecto_final_backend.Models
 {
@@ -10,10 +11,6 @@ namespace proyecto_final_backend.Models
         [Column("id")]
         public int Id { get; set; }
 
-        [ForeignKey("id_proveedor")]
-        public required int IdProveedor { get; set; }
-        public Proveedor? Proveedor { get; set; }
-
         [Column("fecha")]
         public DateOnly Fecha { get; set; }
 
@@ -22,5 +19,11 @@ namespace proyecto_final_backend.Models
 
         [Column("deleted")]
         public bool Deleted { get; set; } = false;
+
+        [Column("id_proveedor")]
+        public int IdProveedor { get; set; }
+        public Proveedor Proveedor { get; set; } = null!;
+
+        public ICollection<DetalleCompra> Detalles { get; set; } = new List<DetalleCompra>();
     }
 }

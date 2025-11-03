@@ -17,5 +17,6 @@ namespace proyecto_final_backend.Models
         public int IdDevolucion { get; set; }
 
         public Producto Producto { get; set; } = null!;
+        public Devolucion Devolucion { get; set; } = null!;
     }
 }

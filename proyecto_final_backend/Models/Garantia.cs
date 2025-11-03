@@ -11,12 +11,6 @@ namespace proyecto_final_backend.Models
         [Column("id")]
         public int Id { get; set; }
 
-        [Column("id_usuario")]
-        public int IdUsuario { get; set; }
-
-        [Column("id_venta")]
-        public int IdVenta { get; set; }
-
         [Column("fecha")]
         public DateOnly Fecha { get; set; }
 
@@ -25,6 +19,14 @@ namespace proyecto_final_backend.Models
 
         [Column("deleted")]
         public bool Deleted { get; set; } = false;
+
+        [Column("id_usuario")]
+        public int IdUsuario { get; set; }
+        public Usuario Usuario { get; set; } = null!;
+
+        [Column("id_venta")]
+        public int IdVenta { get; set; }
+        public Venta Venta { get; set; } = null!;
 
         public ICollection<ComponenteGarantia> Componentes { get; set; } = new List<ComponenteGarantia>();
     }

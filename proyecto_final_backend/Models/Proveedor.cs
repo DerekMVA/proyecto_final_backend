@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace proyecto_final_backend.Models
 {
     [Table("proveedores")]
-    [Index(nameof(Correo), IsUnique = true)]
-    [Index(nameof(Telefono), IsUnique = true)]
     public class Proveedor
     {
         [Key]

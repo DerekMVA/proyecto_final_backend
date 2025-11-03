@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace proyecto_final_backend.Models
 {
@@ -10,17 +11,17 @@ namespace proyecto_final_backend.Models
         [Column("id")]
         public int Id { get; set; }
 
-        [Required]
         [Column("nombre")]
+        [MaxLength(20)]
         public required string Nombre { get; set; }
 
-        [Required]
         [Column("descripcion")]
+        [MaxLength(255)]
         public required string Descripcion { get; set; }
 
-        [Required]
         [Column("deleted")]
-        public required bool Deleted { get; set; }
+        public bool Deleted { get; set; } = false;
 
+        public ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
     }
 }

@@ -11,17 +11,19 @@ namespace proyecto_final_backend.Models
         [Column("id")]
         public int Id { get; set; }
 
-        [Column("id_usuario")]
-        public int UsuarioId { get; set; }
-
-        [Column("id_venta")]
-        public int VentaId { get; set; }
-
         [Column("precio")]
         public decimal Precio { get; set; }
 
         [Column("deleted")]
         public bool Deleted { get; set; }
+
+        [Column("id_usuario")]
+        public int IdUsuario { get; set; }
+        public Usuario Usuario { get; set; } = null!;
+
+        [Column("id_venta")]
+        public int IdVenta { get; set; }
+        public Venta Venta { get; set; } = null!;
 
         public ICollection<ComponenteReparacion> Componentes { get; set; } = new List<ComponenteReparacion>();
     }

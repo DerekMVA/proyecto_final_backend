@@ -3,28 +3,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace proyecto_final_backend.Models
 {
-    [Table("detalle_compras")]
+    [Table("detalles_compras")]
     public class DetalleCompra
     {
         [Key]
         [Column("id")]
         public int Id { get; set; }
 
-        [Required]
-        [Column("cantidad")]
-        public required byte Cantidad { get; set; }
-
-        [Required]
         [Column("precio")]
-        public required decimal Precio { get; set; }
+        public decimal Precio { get; set; }
 
-        [ForeignKey("id_compra")]
-        public required int IdCompra { get; set; }
-        public required Compra Compra { get; set; }
+        [Column("cantidad")]
+        public byte Cantidad { get; set; }
 
-        [ForeignKey("id_producto")]
-        public required int IdProducto { get; set; }  
-        public required Producto Producto { get; set; }
+        [Column("deleted")]
+        public bool Deleted { get; set; } = false;
 
+        [Column("id_producto")]
+        public int IdProducto { get; set; }
+        public Producto Producto { get; set; } = null!;
+
+        [Column("id_compra")]
+        public int IdCompra { get; set; }
+        public Compra Compra { get; set; } = null!;
     }
 }

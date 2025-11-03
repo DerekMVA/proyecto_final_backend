@@ -10,13 +10,13 @@ namespace proyecto_final_backend.Models
         [Column("id")]
         public int Id { get; set; }
 
-        [Column("id_producto")]
-        public int IdProducto { get; set; }
-
         [Column("id_caracteristica")]
         public int IdCaracteristica { get; set; }
 
-        public Producto Producto { get; set; } = null!;
+        [Column("id_producto")]
+        public int IdProducto { get; set; }
+
         public Caracteristica Caracteristica { get; set; } = null!;
+        public Producto Producto { get; set; } = null!;
     }
 }

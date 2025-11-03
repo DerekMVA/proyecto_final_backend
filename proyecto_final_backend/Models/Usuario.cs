@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace proyecto_final_backend.Models
 {
@@ -10,30 +11,31 @@ namespace proyecto_final_backend.Models
         [Column("id")]
         public int Id { get; set; }
 
-        [Required]
         [Column("nombre_completo")]
+        [MaxLength(50)]
         public required string NombreCompleto { get; set; }
 
-        [Required]
-        [Column("usuario")]
-        public required string UsuarioNombre { get; set; }
+        [Column("nombre_usuario")]
+        [MaxLength(15)]
+        public required string NombreUsuario { get; set; }
 
-        [Required]
         [Column("contrasena")]
+        [MaxLength(255)]
         public required string Contrasena { get; set; }
 
-        [ForeignKey("id_rol")]
-        public required int idRol { get; set; }
-        public required Rol Rol { get; set; }
-
-        [Required]
         [Column("salario")]
-        public required decimal Salario { get; set; }
+        public decimal Salario { get; set; }
 
-        [Required]
         [Column("deleted")]
-        public required bool Deleted { get; set; }
+        public bool Deleted { get; set; } = false;
 
+        [Column("id_rol")]
+        public int IdRol { get; set; }
+        public Rol Rol { get; set; } = null!;
 
+        public ICollection<Garantia> Garantias { get; set; } = new List<Garantia>();
+        public ICollection<Reparacion> Reparaciones { get; set; } = new List<Reparacion>();
+        public ICollection<OrdenEnsamble> OrdenesEnsamble { get; set; } = new List<OrdenEnsamble>();
+        public ICollection<Venta> Ventas { get; set; } = new List<Venta>();
     }
 }

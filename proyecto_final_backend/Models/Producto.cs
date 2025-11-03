@@ -38,5 +38,9 @@ namespace proyecto_final_backend.Models
         public ICollection<ComponenteGarantia> ComponentesGarantias { get; set; } = new List<ComponenteGarantia>();
         public ICollection<ComponenteReparacion> ComponentesReparaciones { get; set; } = new List<ComponenteReparacion>();
         public ICollection<DevolucionProducto> DevolucionesProducto { get; set; } = new List<DevolucionProducto>();
+        public ICollection<ProductoCarrito> ProductosCarrito { get; set; } = new List<ProductoCarrito>();
+        public ICollection<ComponenteOrden> ComponentesOrdenes { get; set; } = new List<ComponenteOrden>();
+        public ICollection<DetalleCompra> DetallesCompra { get; set; } = new List<DetalleCompra>();
+        public ICollection<DetalleVenta> DetallesVenta { get; set; } = new List<DetalleVenta>();
     }
 }
