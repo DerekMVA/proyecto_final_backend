@@ -41,10 +41,6 @@ namespace proyecto_final_backend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Caracteristica>()
-                .HasIndex(c => c.Tipo)
-                .IsUnique();
-
             modelBuilder.Entity<CaracteristicaProducto>()
                 .HasOne(cp => cp.Producto)
                 .WithMany(p => p.CaracteristicasProducto)
@@ -342,6 +338,159 @@ namespace proyecto_final_backend.Data
             modelBuilder.Entity<Venta>()
                 .HasIndex(v => v.IdUsuario)
                 .IsUnique();
+
+            // Seed data base
+            modelBuilder.Entity<Rol>().HasData(
+                new Rol { Id = 1, Nombre = "Administrador", Descripcion = "Acceso total al sistema", Deleted = false },
+                new Rol { Id = 2, Nombre = "Vendedor", Descripcion = "Gestión de ventas", Deleted = false }
+            );
+
+            modelBuilder.Entity<Usuario>().HasData(
+                new Usuario
+                {
+                    Id = 1,
+                    NombreCompleto = "Usuario Administrador",
+                    NombreUsuario = "admin",
+                    Contrasena = "admin123",
+                    Salario = 0m,
+                    Deleted = false,
+                    IdRol = 1
+                },
+                new Usuario
+                {
+                    Id = 2,
+                    NombreCompleto = "Usuario Vendedor",
+                    NombreUsuario = "vendedor",
+                    Contrasena = "vendedor123",
+                    Salario = 0m,
+                    Deleted = false,
+                    IdRol = 2
+                }
+            );
+
+            // Seed Proveedores
+            modelBuilder.Entity<Proveedor>().HasData(
+                new Proveedor { Id = 1, Nombre = "Tech Parts", NombreContacto = "Ana Lopez", Correo = "contacto@techparts.com", Telefono = "555-1000", Deleted = false },
+                new Proveedor { Id = 2, Nombre = "CompuDistrib", NombreContacto = "Luis Garcia", Correo = "ventas@compudistrib.com", Telefono = "555-2000", Deleted = false }
+            );
+
+            // Seed Productos
+            modelBuilder.Entity<Producto>().HasData(
+                new Producto { Id = 1, Nombre = "Tarjeta Madre A1", Codigo = "PROD-001", Precio = 1500.00m, Stock = 50, StockMinimo = 10, Nuevo = true, Tipo = 1, Imagen = "mb-a1.png", Deleted = false },
+                new Producto { Id = 2, Nombre = "Procesador X", Codigo = "PROD-002", Precio = 2200.00m, Stock = 35, StockMinimo = 8, Nuevo = true, Tipo = 1, Imagen = "cpu-x.png", Deleted = false },
+                new Producto { Id = 3, Nombre = "Memoria 16GB", Codigo = "PROD-003", Precio = 600.00m, Stock = 80, StockMinimo = 20, Nuevo = true, Tipo = 2, Imagen = "ram-16gb.png", Deleted = false },
+                new Producto { Id = 4, Nombre = "SSD 1TB", Codigo = "PROD-004", Precio = 900.00m, Stock = 60, StockMinimo = 15, Nuevo = true, Tipo = 2, Imagen = "ssd-1tb.png", Deleted = false },
+                new Producto { Id = 5, Nombre = "Fuente 650W", Codigo = "PROD-005", Precio = 500.00m, Stock = 40, StockMinimo = 10, Nuevo = false, Tipo = 3, Imagen = "psu-650w.png", Deleted = false }
+            );
+
+            // Seed Clientes
+            modelBuilder.Entity<Cliente>().HasData(
+                new Cliente { Id = 1, NombreCompleto = "Cliente Demo", Correo = "cliente@demo.com", Telefono = "555-3000", Deleted = false },
+                new Cliente { Id = 2, NombreCompleto = "Juan Perez", Correo = "juan@correo.com", Telefono = "555-4000", Deleted = false }
+            );
+
+            // Seed Caracteristicas
+            modelBuilder.Entity<Caracteristica>().HasData(
+                new Caracteristica { Id = 1, Tipo = "Compatibilidad", Descripcion = "Socket LGA1700", Deleted = false },
+                new Caracteristica { Id = 2, Tipo = "Capacidad", Descripcion = "16GB DDR4", Deleted = false },
+                new Caracteristica { Id = 3, Tipo = "Almacenamiento", Descripcion = "SSD 1TB NVMe", Deleted = false },
+                new Caracteristica { Id = 4, Tipo = "Potencia", Descripcion = "Fuente 650W", Deleted = false }
+            );
+
+            // Seed CaracteristicasProducto
+            modelBuilder.Entity<CaracteristicaProducto>().HasData(
+                new CaracteristicaProducto { Id = 1, IdProducto = 1, IdCaracteristica = 1 },
+                new CaracteristicaProducto { Id = 2, IdProducto = 3, IdCaracteristica = 2 },
+                new CaracteristicaProducto { Id = 3, IdProducto = 4, IdCaracteristica = 3 },
+                new CaracteristicaProducto { Id = 4, IdProducto = 5, IdCaracteristica = 4 },
+                new CaracteristicaProducto { Id = 5, IdProducto = 2, IdCaracteristica = 1 }
+            );
+
+            // Seed Carritos
+            modelBuilder.Entity<Carrito>().HasData(
+                new Carrito { Id = 1, IdCliente = 1, MontoTotal = 600.00m },
+                new Carrito { Id = 2, IdCliente = 2, MontoTotal = 1500.00m }
+            );
+
+            // Seed Productos en Carrito
+            modelBuilder.Entity<ProductoCarrito>().HasData(
+                new ProductoCarrito { Id = 1, IdCarrito = 1, IdProducto = 3, Precio = 600.00m, Cantidad = 1, Deleted = false },
+                new ProductoCarrito { Id = 2, IdCarrito = 2, IdProducto = 1, Precio = 1500.00m, Cantidad = 1, Deleted = false }
+            );
+
+            // Seed Ventas
+            modelBuilder.Entity<Venta>().HasData(
+                new Venta { Id = 1, Fecha = new DateOnly(2025, 1, 1), MontoTotal = 2200.00m, Deleted = false, IdCliente = 1, IdUsuario = 1 },
+                new Venta { Id = 2, Fecha = new DateOnly(2025, 2, 1), MontoTotal = 1500.00m, Deleted = false, IdCliente = 2, IdUsuario = 2 }
+            );
+
+            // Seed Detalles de Venta
+            modelBuilder.Entity<DetalleVenta>().HasData(
+                new DetalleVenta { Id = 1, IdVenta = 1, IdProducto = 2, Precio = 2200.00m, Cantidad = 1, Deleted = false },
+                new DetalleVenta { Id = 2, IdVenta = 2, IdProducto = 1, Precio = 1500.00m, Cantidad = 1, Deleted = false }
+            );
+
+            // Seed Ordenes de Ensamble
+            modelBuilder.Entity<OrdenEnsamble>().HasData(
+                new OrdenEnsamble { Id = 1, PrecioEnsamble = 300.00m, Estado = 1, Deleted = false, IdUsuario = 1, IdVenta = 1 },
+                new OrdenEnsamble { Id = 2, PrecioEnsamble = 200.00m, Estado = 1, Deleted = false, IdUsuario = 2, IdVenta = 2 }
+            );
+
+            modelBuilder.Entity<ComponenteOrden>().HasData(
+                new ComponenteOrden { Id = 1, IdOrdenEnsamble = 1, IdProducto = 1, Precio = 1500.00m, Cantidad = 1 },
+                new ComponenteOrden { Id = 2, IdOrdenEnsamble = 2, IdProducto = 3, Precio = 600.00m, Cantidad = 1 }
+            );
+
+            // Seed Garantias
+            modelBuilder.Entity<Garantia>().HasData(
+                new Garantia { Id = 1, Fecha = new DateOnly(2025, 1, 15), Estado = 1, Deleted = false, IdUsuario = 1, IdVenta = 1 },
+                new Garantia { Id = 2, Fecha = new DateOnly(2025, 2, 15), Estado = 1, Deleted = false, IdUsuario = 2, IdVenta = 2 }
+            );
+
+            modelBuilder.Entity<ComponenteGarantia>().HasData(
+                new ComponenteGarantia { Id = 1, IdGarantia = 1, IdProducto = 4, Cantidad = 1 },
+                new ComponenteGarantia { Id = 2, IdGarantia = 2, IdProducto = 1, Cantidad = 1 }
+            );
+
+            // Seed Devoluciones
+            modelBuilder.Entity<Devolucion>().HasData(
+                new Devolucion { Id = 1, PrecioDevolucion = 500.00m, Deleted = false, IdVenta = 1 },
+                new Devolucion { Id = 2, PrecioDevolucion = 1500.00m, Deleted = false, IdVenta = 2 }
+            );
+
+            modelBuilder.Entity<DevolucionProducto>().HasData(
+                new DevolucionProducto { Id = 1, IdDevolucion = 1, IdProducto = 5 },
+                new DevolucionProducto { Id = 2, IdDevolucion = 2, IdProducto = 1 }
+            );
+
+            // Seed Compras y Detalles
+            modelBuilder.Entity<Compra>().HasData(
+                new Compra { Id = 1, Fecha = new DateOnly(2025, 1, 5), MontoTotal = 14000.00m, Deleted = false, IdProveedor = 1 },
+                new Compra { Id = 2, Fecha = new DateOnly(2025, 2, 5), MontoTotal = 8500.00m, Deleted = false, IdProveedor = 2 }
+            );
+
+            modelBuilder.Entity<DetalleCompra>().HasData(
+                new DetalleCompra { Id = 1, IdCompra = 1, IdProducto = 1, Precio = 1400.00m, Cantidad = 10, Deleted = false },
+                new DetalleCompra { Id = 2, IdCompra = 2, IdProducto = 4, Precio = 850.00m, Cantidad = 10, Deleted = false }
+            );
+
+            // Seed Componentes (relaciones de compatibilidad/ensamble)
+            modelBuilder.Entity<Componente>().HasData(
+                new Componente { Id = 1, IdProductoPrincipal = 1, IdProductoSecundario = 2 },
+                new Componente { Id = 2, IdProductoPrincipal = 1, IdProductoSecundario = 3 },
+                new Componente { Id = 3, IdProductoPrincipal = 2, IdProductoSecundario = 3 }
+            );
+
+            // Seed Reparaciones y Componentes usados
+            modelBuilder.Entity<Reparacion>().HasData(
+                new Reparacion { Id = 1, Precio = 300.00m, Deleted = false, IdUsuario = 1, IdVenta = 1 },
+                new Reparacion { Id = 2, Precio = 700.00m, Deleted = false, IdUsuario = 2, IdVenta = 2 }
+            );
+
+            modelBuilder.Entity<ComponenteReparacion>().HasData(
+                new ComponenteReparacion { Id = 1, IdReparacion = 1, IdProducto = 5, Precio = 500.00m, Cantidad = 1 },
+                new ComponenteReparacion { Id = 2, IdReparacion = 2, IdProducto = 1, Precio = 700.00m, Cantidad = 1 }
+            );
         }
     }
 }

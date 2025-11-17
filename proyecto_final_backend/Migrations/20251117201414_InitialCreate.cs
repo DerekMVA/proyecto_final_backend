@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace proyecto_final_backend.Migrations
 {
     /// <inheritdoc />
@@ -437,7 +439,7 @@ namespace proyecto_final_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "devolucion_producto",
+                name: "devoluciones_productos",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -447,15 +449,15 @@ namespace proyecto_final_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_devolucion_producto", x => x.id);
+                    table.PrimaryKey("PK_devoluciones_productos", x => x.id);
                     table.ForeignKey(
-                        name: "FK_devolucion_producto_devoluciones_id_devolucion",
+                        name: "FK_devoluciones_productos_devoluciones_id_devolucion",
                         column: x => x.id_devolucion,
                         principalTable: "devoluciones",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_devolucion_producto_productos_id_producto",
+                        name: "FK_devoluciones_productos_productos_id_producto",
                         column: x => x.id_producto,
                         principalTable: "productos",
                         principalColumn: "id",
@@ -545,11 +547,212 @@ namespace proyecto_final_backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_caracteristicas_tipo",
+            migrationBuilder.InsertData(
                 table: "caracteristicas",
-                column: "tipo",
-                unique: true);
+                columns: new[] { "id", "deleted", "descripcion", "tipo" },
+                values: new object[,]
+                {
+                    { 1, false, "Socket LGA1700", "Compatibilidad" },
+                    { 2, false, "16GB DDR4", "Capacidad" },
+                    { 3, false, "SSD 1TB NVMe", "Almacenamiento" },
+                    { 4, false, "Fuente 650W", "Potencia" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "clientes",
+                columns: new[] { "id", "correo", "deleted", "nombre_completo", "telefono" },
+                values: new object[,]
+                {
+                    { 1, "cliente@demo.com", false, "Cliente Demo", "555-3000" },
+                    { 2, "juan@correo.com", false, "Juan Perez", "555-4000" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "productos",
+                columns: new[] { "id", "codigo", "deleted", "imagen", "nombre", "nuevo", "precio", "stock", "stock_minimo", "tipo" },
+                values: new object[,]
+                {
+                    { 1, "PROD-001", false, "mb-a1.png", "Tarjeta Madre A1", true, 1500.00m, (byte)50, (byte)10, (byte)1 },
+                    { 2, "PROD-002", false, "cpu-x.png", "Procesador X", true, 2200.00m, (byte)35, (byte)8, (byte)1 },
+                    { 3, "PROD-003", false, "ram-16gb.png", "Memoria 16GB", true, 600.00m, (byte)80, (byte)20, (byte)2 },
+                    { 4, "PROD-004", false, "ssd-1tb.png", "SSD 1TB", true, 900.00m, (byte)60, (byte)15, (byte)2 },
+                    { 5, "PROD-005", false, "psu-650w.png", "Fuente 650W", false, 500.00m, (byte)40, (byte)10, (byte)3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "proveedores",
+                columns: new[] { "id", "correo", "deleted", "nombre", "nombre_contacto", "telefono" },
+                values: new object[,]
+                {
+                    { 1, "contacto@techparts.com", false, "Tech Parts", "Ana Lopez", "555-1000" },
+                    { 2, "ventas@compudistrib.com", false, "CompuDistrib", "Luis Garcia", "555-2000" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "roles",
+                columns: new[] { "id", "deleted", "descripcion", "nombre" },
+                values: new object[,]
+                {
+                    { 1, false, "Acceso total al sistema", "Administrador" },
+                    { 2, false, "Gestión de ventas", "Vendedor" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "caracteristicas_productos",
+                columns: new[] { "id", "id_caracteristica", "id_producto" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 3 },
+                    { 3, 3, 4 },
+                    { 4, 4, 5 },
+                    { 5, 1, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "carrito_compras",
+                columns: new[] { "id", "id_cliente", "monto_total" },
+                values: new object[,]
+                {
+                    { 1, 1, 600.00m },
+                    { 2, 2, 1500.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "componentes",
+                columns: new[] { "id", "id_producto_principal", "id_producto_secundario" },
+                values: new object[,]
+                {
+                    { 1, 1, 2 },
+                    { 2, 1, 3 },
+                    { 3, 2, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "compras",
+                columns: new[] { "id", "deleted", "fecha", "id_proveedor", "monto_total" },
+                values: new object[,]
+                {
+                    { 1, false, new DateOnly(2025, 1, 5), 1, 14000.00m },
+                    { 2, false, new DateOnly(2025, 2, 5), 2, 8500.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "usuarios",
+                columns: new[] { "id", "contrasena", "deleted", "id_rol", "nombre_completo", "nombre_usuario", "salario" },
+                values: new object[,]
+                {
+                    { 1, "admin123", false, 1, "Usuario Administrador", "admin", 0m },
+                    { 2, "vendedor123", false, 2, "Usuario Vendedor", "vendedor", 0m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "detalles_compras",
+                columns: new[] { "id", "cantidad", "deleted", "id_compra", "id_producto", "precio" },
+                values: new object[,]
+                {
+                    { 1, (byte)10, false, 1, 1, 1400.00m },
+                    { 2, (byte)10, false, 2, 4, 850.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "productos_carrito",
+                columns: new[] { "id", "cantidad", "deleted", "id_carrito", "id_producto", "precio" },
+                values: new object[,]
+                {
+                    { 1, (byte)1, false, 1, 3, 600.00m },
+                    { 2, (byte)1, false, 2, 1, 1500.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ventas",
+                columns: new[] { "id", "deleted", "fecha", "id_cliente", "id_usuario", "monto_total" },
+                values: new object[,]
+                {
+                    { 1, false, new DateOnly(2025, 1, 1), 1, 1, 2200.00m },
+                    { 2, false, new DateOnly(2025, 2, 1), 2, 2, 1500.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "detalles_ventas",
+                columns: new[] { "id", "cantidad", "deleted", "id_producto", "id_venta", "precio" },
+                values: new object[,]
+                {
+                    { 1, (byte)1, false, 2, 1, 2200.00m },
+                    { 2, (byte)1, false, 1, 2, 1500.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "devoluciones",
+                columns: new[] { "id", "deleted", "id_venta", "precio_devolucion" },
+                values: new object[,]
+                {
+                    { 1, false, 1, 500.00m },
+                    { 2, false, 2, 1500.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "garantias",
+                columns: new[] { "id", "deleted", "estado", "fecha", "id_usuario", "id_venta" },
+                values: new object[,]
+                {
+                    { 1, false, (byte)1, new DateOnly(2025, 1, 15), 1, 1 },
+                    { 2, false, (byte)1, new DateOnly(2025, 2, 15), 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ordenes_ensambles",
+                columns: new[] { "id", "deleted", "estado", "id_usuario", "id_venta", "precio_ensamble" },
+                values: new object[,]
+                {
+                    { 1, false, (byte)1, 1, 1, 300.00m },
+                    { 2, false, (byte)1, 2, 2, 200.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "reparaciones",
+                columns: new[] { "id", "deleted", "id_usuario", "id_venta", "precio" },
+                values: new object[,]
+                {
+                    { 1, false, 1, 1, 300.00m },
+                    { 2, false, 2, 2, 700.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "componentes_garantias",
+                columns: new[] { "id", "cantidad", "id_garantia", "id_producto" },
+                values: new object[,]
+                {
+                    { 1, (byte)1, 1, 4 },
+                    { 2, (byte)1, 2, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "componentes_ordenes",
+                columns: new[] { "id", "cantidad", "id_orden_ensamble", "id_producto", "precio" },
+                values: new object[,]
+                {
+                    { 1, (byte)1, 1, 1, 1500.00m },
+                    { 2, (byte)1, 2, 3, 600.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "componentes_reparaciones",
+                columns: new[] { "id", "cantidad", "id_producto", "id_reparacion", "precio" },
+                values: new object[,]
+                {
+                    { 1, (byte)1, 5, 1, 500.00m },
+                    { 2, (byte)1, 1, 2, 700.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "devoluciones_productos",
+                columns: new[] { "id", "id_devolucion", "id_producto" },
+                values: new object[,]
+                {
+                    { 1, 1, 5 },
+                    { 2, 2, 1 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_caracteristicas_productos_id_caracteristica_id_producto",
@@ -655,20 +858,20 @@ namespace proyecto_final_backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_devolucion_producto_id_devolucion",
-                table: "devolucion_producto",
-                column: "id_devolucion");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_devolucion_producto_id_producto_id_devolucion",
-                table: "devolucion_producto",
-                columns: new[] { "id_producto", "id_devolucion" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_devoluciones_id_venta",
                 table: "devoluciones",
                 column: "id_venta",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_devoluciones_productos_id_devolucion",
+                table: "devoluciones_productos",
+                column: "id_devolucion");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_devoluciones_productos_id_producto_id_devolucion",
+                table: "devoluciones_productos",
+                columns: new[] { "id_producto", "id_devolucion" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -790,7 +993,7 @@ namespace proyecto_final_backend.Migrations
                 name: "detalles_ventas");
 
             migrationBuilder.DropTable(
-                name: "devolucion_producto");
+                name: "devoluciones_productos");
 
             migrationBuilder.DropTable(
                 name: "productos_carrito");

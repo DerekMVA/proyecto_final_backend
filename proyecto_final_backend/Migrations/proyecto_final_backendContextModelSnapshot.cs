@@ -49,10 +49,37 @@ namespace proyecto_final_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Tipo")
-                        .IsUnique();
-
                     b.ToTable("caracteristicas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Deleted = false,
+                            Descripcion = "Socket LGA1700",
+                            Tipo = "Compatibilidad"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Deleted = false,
+                            Descripcion = "16GB DDR4",
+                            Tipo = "Capacidad"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Deleted = false,
+                            Descripcion = "SSD 1TB NVMe",
+                            Tipo = "Almacenamiento"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Deleted = false,
+                            Descripcion = "Fuente 650W",
+                            Tipo = "Potencia"
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.CaracteristicaProducto", b =>
@@ -80,6 +107,38 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("caracteristicas_productos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdCaracteristica = 1,
+                            IdProducto = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdCaracteristica = 2,
+                            IdProducto = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IdCaracteristica = 3,
+                            IdProducto = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IdCaracteristica = 4,
+                            IdProducto = 5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IdCaracteristica = 1,
+                            IdProducto = 2
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Carrito", b =>
@@ -105,6 +164,20 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("carrito_compras");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdCliente = 1,
+                            MontoTotal = 600.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdCliente = 2,
+                            MontoTotal = 1500.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Cliente", b =>
@@ -147,6 +220,24 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("clientes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Correo = "cliente@demo.com",
+                            Deleted = false,
+                            NombreCompleto = "Cliente Demo",
+                            Telefono = "555-3000"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Correo = "juan@correo.com",
+                            Deleted = false,
+                            NombreCompleto = "Juan Perez",
+                            Telefono = "555-4000"
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Componente", b =>
@@ -174,6 +265,26 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("componentes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdProductoPrincipal = 1,
+                            IdProductoSecundario = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdProductoPrincipal = 1,
+                            IdProductoSecundario = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IdProductoPrincipal = 2,
+                            IdProductoSecundario = 3
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.ComponenteGarantia", b =>
@@ -205,6 +316,22 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("componentes_garantias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cantidad = (byte)1,
+                            IdGarantia = 1,
+                            IdProducto = 4
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cantidad = (byte)1,
+                            IdGarantia = 2,
+                            IdProducto = 1
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.ComponenteOrden", b =>
@@ -240,6 +367,24 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("componentes_ordenes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cantidad = (byte)1,
+                            IdOrdenEnsamble = 1,
+                            IdProducto = 1,
+                            Precio = 1500.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cantidad = (byte)1,
+                            IdOrdenEnsamble = 2,
+                            IdProducto = 3,
+                            Precio = 600.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.ComponenteReparacion", b =>
@@ -275,6 +420,24 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("componentes_reparaciones");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cantidad = (byte)1,
+                            IdProducto = 5,
+                            IdReparacion = 1,
+                            Precio = 500.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cantidad = (byte)1,
+                            IdProducto = 1,
+                            IdReparacion = 2,
+                            Precio = 700.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Compra", b =>
@@ -308,6 +471,24 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("compras");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Deleted = false,
+                            Fecha = new DateOnly(2025, 1, 5),
+                            IdProveedor = 1,
+                            MontoTotal = 14000.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Deleted = false,
+                            Fecha = new DateOnly(2025, 2, 5),
+                            IdProveedor = 2,
+                            MontoTotal = 8500.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.DetalleCompra", b =>
@@ -348,6 +529,26 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("detalles_compras");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cantidad = (byte)10,
+                            Deleted = false,
+                            IdCompra = 1,
+                            IdProducto = 1,
+                            Precio = 1400.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cantidad = (byte)10,
+                            Deleted = false,
+                            IdCompra = 2,
+                            IdProducto = 4,
+                            Precio = 850.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.DetalleVenta", b =>
@@ -388,6 +589,26 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("detalles_ventas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cantidad = (byte)1,
+                            Deleted = false,
+                            IdProducto = 2,
+                            IdVenta = 1,
+                            Precio = 2200.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cantidad = (byte)1,
+                            Deleted = false,
+                            IdProducto = 1,
+                            IdVenta = 2,
+                            Precio = 1500.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Devolucion", b =>
@@ -417,6 +638,22 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("devoluciones");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Deleted = false,
+                            IdVenta = 1,
+                            PrecioDevolucion = 500.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Deleted = false,
+                            IdVenta = 2,
+                            PrecioDevolucion = 1500.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.DevolucionProducto", b =>
@@ -443,7 +680,21 @@ namespace proyecto_final_backend.Migrations
                     b.HasIndex("IdProducto", "IdDevolucion")
                         .IsUnique();
 
-                    b.ToTable("devolucion_producto");
+                    b.ToTable("devoluciones_productos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdDevolucion = 1,
+                            IdProducto = 5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdDevolucion = 2,
+                            IdProducto = 1
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Garantia", b =>
@@ -484,6 +735,26 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("garantias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Deleted = false,
+                            Estado = (byte)1,
+                            Fecha = new DateOnly(2025, 1, 15),
+                            IdUsuario = 1,
+                            IdVenta = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Deleted = false,
+                            Estado = (byte)1,
+                            Fecha = new DateOnly(2025, 2, 15),
+                            IdUsuario = 2,
+                            IdVenta = 2
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.OrdenEnsamble", b =>
@@ -524,6 +795,26 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("ordenes_ensambles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Deleted = false,
+                            Estado = (byte)1,
+                            IdUsuario = 1,
+                            IdVenta = 1,
+                            PrecioEnsamble = 300.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Deleted = false,
+                            Estado = (byte)1,
+                            IdUsuario = 2,
+                            IdVenta = 2,
+                            PrecioEnsamble = 200.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Producto", b =>
@@ -583,6 +874,73 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("productos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Codigo = "PROD-001",
+                            Deleted = false,
+                            Imagen = "mb-a1.png",
+                            Nombre = "Tarjeta Madre A1",
+                            Nuevo = true,
+                            Precio = 1500.00m,
+                            Stock = (byte)50,
+                            StockMinimo = (byte)10,
+                            Tipo = (byte)1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Codigo = "PROD-002",
+                            Deleted = false,
+                            Imagen = "cpu-x.png",
+                            Nombre = "Procesador X",
+                            Nuevo = true,
+                            Precio = 2200.00m,
+                            Stock = (byte)35,
+                            StockMinimo = (byte)8,
+                            Tipo = (byte)1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Codigo = "PROD-003",
+                            Deleted = false,
+                            Imagen = "ram-16gb.png",
+                            Nombre = "Memoria 16GB",
+                            Nuevo = true,
+                            Precio = 600.00m,
+                            Stock = (byte)80,
+                            StockMinimo = (byte)20,
+                            Tipo = (byte)2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Codigo = "PROD-004",
+                            Deleted = false,
+                            Imagen = "ssd-1tb.png",
+                            Nombre = "SSD 1TB",
+                            Nuevo = true,
+                            Precio = 900.00m,
+                            Stock = (byte)60,
+                            StockMinimo = (byte)15,
+                            Tipo = (byte)2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Codigo = "PROD-005",
+                            Deleted = false,
+                            Imagen = "psu-650w.png",
+                            Nombre = "Fuente 650W",
+                            Nuevo = false,
+                            Precio = 500.00m,
+                            Stock = (byte)40,
+                            StockMinimo = (byte)10,
+                            Tipo = (byte)3
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.ProductoCarrito", b =>
@@ -622,6 +980,26 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("productos_carrito");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cantidad = (byte)1,
+                            Deleted = false,
+                            IdCarrito = 1,
+                            IdProducto = 3,
+                            Precio = 600.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cantidad = (byte)1,
+                            Deleted = false,
+                            IdCarrito = 2,
+                            IdProducto = 1,
+                            Precio = 1500.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Proveedor", b =>
@@ -670,6 +1048,26 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("proveedores");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Correo = "contacto@techparts.com",
+                            Deleted = false,
+                            Nombre = "Tech Parts",
+                            NombreContacto = "Ana Lopez",
+                            Telefono = "555-1000"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Correo = "ventas@compudistrib.com",
+                            Deleted = false,
+                            Nombre = "CompuDistrib",
+                            NombreContacto = "Luis Garcia",
+                            Telefono = "555-2000"
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Reparacion", b =>
@@ -704,6 +1102,24 @@ namespace proyecto_final_backend.Migrations
                     b.HasIndex("IdVenta");
 
                     b.ToTable("reparaciones");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Deleted = false,
+                            IdUsuario = 1,
+                            IdVenta = 1,
+                            Precio = 300.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Deleted = false,
+                            IdUsuario = 2,
+                            IdVenta = 2,
+                            Precio = 700.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Rol", b =>
@@ -737,6 +1153,22 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Deleted = false,
+                            Descripcion = "Acceso total al sistema",
+                            Nombre = "Administrador"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Deleted = false,
+                            Descripcion = "Gestión de ventas",
+                            Nombre = "Vendedor"
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Usuario", b =>
@@ -787,6 +1219,28 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Contrasena = "admin123",
+                            Deleted = false,
+                            IdRol = 1,
+                            NombreCompleto = "Usuario Administrador",
+                            NombreUsuario = "admin",
+                            Salario = 0m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Contrasena = "vendedor123",
+                            Deleted = false,
+                            IdRol = 2,
+                            NombreCompleto = "Usuario Vendedor",
+                            NombreUsuario = "vendedor",
+                            Salario = 0m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.Venta", b =>
@@ -827,6 +1281,26 @@ namespace proyecto_final_backend.Migrations
                         .IsUnique();
 
                     b.ToTable("ventas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Deleted = false,
+                            Fecha = new DateOnly(2025, 1, 1),
+                            IdCliente = 1,
+                            IdUsuario = 1,
+                            MontoTotal = 2200.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Deleted = false,
+                            Fecha = new DateOnly(2025, 2, 1),
+                            IdCliente = 2,
+                            IdUsuario = 2,
+                            MontoTotal = 1500.00m
+                        });
                 });
 
             modelBuilder.Entity("proyecto_final_backend.Models.CaracteristicaProducto", b =>

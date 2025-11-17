@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace proyecto_final_backend.Models
 {
-    [Table("devolucion_producto")]
+    [Table("devoluciones_productos")]
     public class DevolucionProducto
     {
         [Key]

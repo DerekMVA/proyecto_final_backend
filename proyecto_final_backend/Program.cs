@@ -8,6 +8,21 @@ builder.Services.AddDbContext<proyecto_final_backendContext>(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
+// CORS: ajusta los orígenes según la URL real de tu frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(
+            "http://localhost:3000", // ejemplo React local
+            "http://localhost:4200"  // ejemplo Angular local
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+    });
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -22,6 +37,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
